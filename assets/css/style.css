@@ -70,6 +70,12 @@ code {
     padding: 0.2em 0.4em;
     font-size: 85%;
 }
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
 pre {
     padding: 16px;
     overflow: auto;
