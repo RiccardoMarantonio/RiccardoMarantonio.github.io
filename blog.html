@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Riccardo Marantonio</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="/">Riccardo Marantonio</a></h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/blog.html">Blog</a>
+                <a href="https://github.com/RiccardoMarantonio">GitHub</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <h2>Blog</h2>
+        <ul class="post-list" id="blog-posts">
+            <li>Loading posts...</li>
+        </ul>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Riccardo Marantonio. "Hello world, goodbye brain 🧠..."</p>
+        </div>
+    </footer>
+    <script type="module">
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        const posts = [
+            { id: '2026-04-27-compilers-and-music', title: 'Bridging Music and Compilers', date: 'April 27, 2026', excerpt: 'Welcome to my personal site! My background is in Computer Science applied to Music...' }
+        ];
+
+        const list = document.getElementById('blog-posts');
+        list.innerHTML = '';
+        posts.forEach(post => {
+            const li = document.createElement('li');
+            li.style.marginBottom = '25px';
+            li.innerHTML = `
+                <div style="color: #666; font-size: 0.9em; margin-bottom: 5px;">${post.date}</div>
+                <h3 style="margin: 0;">
+                    <a href="/post.html?id=${post.id}">${post.title}</a>
+                </h3>
+                <p style="margin-top: 5px; font-size: 0.95em;">${post.excerpt}</p>
+            `;
+            list.appendChild(li);
+        });
+    </script>
+</body>
+</html>

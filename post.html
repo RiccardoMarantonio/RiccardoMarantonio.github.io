@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - Riccardo Marantonio</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="/">Riccardo Marantonio</a></h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/blog.html">Blog</a>
+                <a href="https://github.com/RiccardoMarantonio">GitHub</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <article>
+            <div id="post-content">Loading post...</div>
+        </article>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Riccardo Marantonio. "Hello world, goodbye brain 🧠..."</p>
+        </div>
+    </footer>
+    <script type="module">
+        import { marked } from 'marked';
+        import DOMPurify from 'dompurify';
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+
+        const contentDiv = document.getElementById('post-content');
+
+        if (postId) {
+            fetch(`/posts/${postId}.md`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Post not found');
+                    return response.text();
+                })
+                .then(text => {
+                    // Quick parsing of frontmatter (just stripping it for display)
+                    const frontmatterRegex = /^---\n([\s\S]*?)\n---\n/;
+                    const match = text.match(frontmatterRegex);
+                    let body = text;
+                    let title = "Blog Post";
+                    let date = "";
+
+                    if (match) {
+                        body = text.replace(frontmatterRegex, '');
+                        const frontmatter = match[1];
+                        const titleMatch = frontmatter.match(/title:\s*"?([^"\n]+)"?/);
+                        if (titleMatch) title = titleMatch[1];
+                    }
+
+                    document.title = `${title} - Riccardo Marantonio`;
+                    
+                    const html = marked.parse(body);
+                    const cleanHtml = DOMPurify.sanitize(html);
+                    
+                    contentDiv.innerHTML = `
+                        <header>
+                            <h2>${title}</h2>
+                        </header>
+                        <div class="content" style="margin-top: 20px;">
+                            ${cleanHtml}
+                        </div>
+                    `;
+                })
+                .catch(err => {
+                    contentDiv.innerHTML = '<p>Error loading post. It may not exist.</p>';
+                });
+        } else {
+            contentDiv.innerHTML = '<p>No post selected.</p>';
+        }
+    </script>
+</body>
+</html>

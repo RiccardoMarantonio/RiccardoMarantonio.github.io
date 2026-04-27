@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riccardo Marantonio</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="/">Riccardo Marantonio</a></h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/blog.html">Blog</a>
+                <a href="https://github.com/RiccardoMarantonio">GitHub</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <section>
+            <p>Hi, I'm Riccardo. I have a Bachelor's degree in Computer Science applied to Music. Currently, my main focus is on the study of compilers and the development of my own programming language, <strong>Eter</strong>.</p>
+        </section>
+
+        <section>
+            <h2>Projects</h2>
+            
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3><a href="https://github.com/RiccardoMarantonio/eter">Eter</a></h3>
+                    <p>The Eter Programming Language. Built in C++.</p>
+                    <p><small><strong>Focus:</strong> Compilers & Language Design</small></p>
+                </div>
+
+                <div class="project-card">
+                    <h3><a href="https://github.com/RiccardoMarantonio/codeSeparator.nvim">codeSeparator.nvim</a></h3>
+                    <p>A Neovim plugin written in Lua. ★14</p>
+                    <p><small><strong>Focus:</strong> Editor Tooling</small></p>
+                </div>
+
+                <div class="project-card">
+                    <h3><a href="https://github.com/RiccardoMarantonio/Spectrix">Spectrix</a></h3>
+                    <p>An experimental spectral dynamics processor built with JUCE 8.</p>
+                    <p><small><strong>Focus:</strong> Music Tech / C++ DSP</small></p>
+                </div>
+
+                <div class="project-card">
+                    <h3><a href="https://github.com/RiccardoMarantonio/Python_Moog">Python_Moog</a></h3>
+                    <p>A Python-based MiniMoog emulator made with pyo and WXwidgets.</p>
+                    <p><small><strong>Focus:</strong> Audio Programming</small></p>
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top: 40px;">
+            <h2>Recent Posts</h2>
+            <ul class="post-list" id="recent-posts">
+                <li>Loading posts...</li>
+            </ul>
+            <p><a href="/blog.html">View all posts &rarr;</a></p>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Riccardo Marantonio. "Hello world, goodbye brain 🧠..."</p>
+        </div>
+    </footer>
+    <script type="module">
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Simulating a basic post index. In a real Vite app, we might use Vite's import.meta.glob to list files.
+        const posts = [
+            { id: '2026-04-27-compilers-and-music', title: 'Bridging Music and Compilers', date: 'April 27, 2026' }
+        ];
+
+        const list = document.getElementById('recent-posts');
+        list.innerHTML = '';
+        posts.slice(0, 3).forEach(post => {
+            const li = document.createElement('li');
+            li.innerHTML = `<a href="/post.html?id=${post.id}"><strong>${post.title}</strong></a>
+            <span style="color: #666; font-size: 0.9em;"> - ${post.date}</span>`;
+            list.appendChild(li);
+        });
+    </script>
+</body>
+</html>
